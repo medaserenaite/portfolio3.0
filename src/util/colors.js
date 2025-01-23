@@ -1,11 +1,7 @@
 export const silver = '#dddddd';
 export const white = '#ffffff';
 export const gainsboro = '#dcdcdc';
-
-//colors
-// export const black = '#000000';
-// export const greyLight = '#F4F4F4';
-// export const greyDark = '#9A9A9A'
+export const greyLight = '#F4F4F4';
 
 
 //box shadows
