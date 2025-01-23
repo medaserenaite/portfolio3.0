@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import * as colors from '../util/colors';
 import Toggle from './Toggle';
+import { projects } from '../util/data.js';
+
+const Wrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+`
 
 // https://miro.medium.com/v2/resize:fit:720/format:webp/1*RYMDPwcVjiZDbOJy4hfYmw.png
 const Container = styled.div`
@@ -23,6 +31,7 @@ const ImageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: 1;
 `
 
 const ImageWrapper = styled.div`
@@ -37,6 +46,7 @@ const ImageWrapper = styled.div`
 `
 
 const DescriptionWrapper = styled.div`
+    flex: 1;
     @media screen and (min-width: 600px) {
         padding-left: 30px;
     }
@@ -93,41 +103,39 @@ const ProjectLabel = styled.a`
 `
 
 
-const ProjectCard = props => {
+const ProjectCard = () => {
+    const [activeIndex, setActiveIndex] = useState(null);
 
-    const [isDesktop, setIsDesktop] = useState(true);
-
-    const handleToggleChange = () => {
-        setIsDesktop(!isDesktop);
+    const handleToggleChange = (i) => {
+        setActiveIndex(activeIndex === i ? null : i);
     };
 
     return (
-        <Container>
-            <ImageContainer>
-                <ImageWrapper>
-                    {isDesktop ? (
-                        <img height="200px" width="auto" src="final-monitor.png" alt="Monitor" />
-                    ) : (
-                        <img height="200px" width="auto" src="final-phone.webp" alt="Phone Device" />
-                    )}
-                </ImageWrapper>
-                <Toggle onChange={handleToggleChange} />
-            </ImageContainer>
-            <DescriptionWrapper>
-                <ProjectName>Lorem Ipsum</ProjectName>
-                <ProjectDescription>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ullamcorper, neque ultrices eleifend congue, enim magna condimentum tortor, at imperdiet nisi massa at mauris. Etiam elit dolor, feugiat aliquam imperdiet et, rutrum eget sem. Proin fringilla tempor odio, in varius mauris porttitor id.
-                </ProjectDescription>
-                <ProjectLabelContainer>
-                    <ProjectLabel href="#" className='orange'>Handlebars</ProjectLabel>
-                    <ProjectLabel href="/" className='yellow'>VanillaJS</ProjectLabel>
-                    <ProjectLabel href="#" className='pink'>SCSS</ProjectLabel>
-                    <ProjectLabel href="#">Redux</ProjectLabel>
-                    <ProjectLabel href="#">BEM</ProjectLabel>
-                    <ProjectLabel href="#">Figma</ProjectLabel>
-                </ProjectLabelContainer>
-            </DescriptionWrapper>
-        </Container>
+        <Wrapper>
+            {projects.map((project, i) => (
+                <Container key={i}>
+                    <ImageContainer>
+                        <ImageWrapper>
+                            {activeIndex === i ? (
+                                <img height="200px" width="auto" src="final-phone.webp" alt="Phone Device" />
+                            ) : (
+                                <img height="200px" width="auto" src="final-monitor.png" alt="Monitor" />
+                            )}
+                        </ImageWrapper>
+                        {project.toggleOff ? null : <Toggle onChange={() => handleToggleChange(i)} />}
+                    </ImageContainer>
+                    <DescriptionWrapper>
+                        <ProjectName>{project.name}</ProjectName>
+                        <ProjectDescription>{project.description}</ProjectDescription>
+                        <ProjectLabelContainer>
+                            {project.techs.map((tech, index) => (
+                                <ProjectLabel key={index} href={tech.url}>{tech.name}</ProjectLabel>
+                            ))}
+                        </ProjectLabelContainer>
+                    </DescriptionWrapper>
+                </Container>
+            ))}
+        </Wrapper>
     );
 };
 

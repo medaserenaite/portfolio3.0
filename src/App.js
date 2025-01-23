@@ -1,16 +1,15 @@
-import ProjectCard from "./components/ProjectCard";
 import styled from "styled-components";
+import Section from "./components/Section";
+import ProjectCard from "./components/ProjectCard";
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  
-`
+const Wrapper = styled.div``
+
 function App() {
-
   return (
     <Wrapper>
-      <ProjectCard />
+      <Section>
+       <ProjectCard />
+      </Section>
     </Wrapper>
   );
 }
