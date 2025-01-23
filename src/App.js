@@ -1,10 +1,17 @@
-import Toggle from "./components/Toggle";
+import ProjectCard from "./components/ProjectCard";
+import styled from "styled-components";
 
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  
+`
 function App() {
+
   return (
-    <div className="App">
-      <Toggle />
-    </div>
+    <Wrapper>
+      <ProjectCard />
+    </Wrapper>
   );
 }
 
