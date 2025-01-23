@@ -40,16 +40,19 @@ const Slider = styled.div`
     border-bottom-right-radius: ${({ activeOption }) => activeOption === 'option-B' ? '7px' : ''};
     border-top-right-radius: ${({ activeOption }) => activeOption === 'option-B' ? '7px' : ''};
 
+
     background-color: ${colors.gainsboro};
 
     transition: transform 0.4s ease;
     transform: ${({ activeOption }) => activeOption === 'option-A' ? 'translateX(0)' : 'translateX(100%)'};`;
 
-const Toggle = props => {
+
+const Toggle = ({ props, onChange }) => {
     const [activeOption, setActiveOption] = useState('option-A');
 
     const handleClick = (option) => {
         setActiveOption(option);
+        onChange(option);
     };
 
     return (
@@ -57,13 +60,13 @@ const Toggle = props => {
             <Slider activeOption={activeOption} />
             <Option 
                 className="option-A" 
-                onClick={() => handleClick('option-A')}
+                onClick={() => activeOption !== 'option-A' && handleClick('option-A')}
             >
                 Desktop
             </Option>
             <Option 
                 className="option-B" 
-                onClick={() => handleClick('option-B')}
+                onClick={() => activeOption !== 'option-B' && handleClick('option-B')}
             >
                 Mobile
             </Option>
