@@ -48,3 +48,20 @@ h1, h2, h3, h4, h5, h6 {
 #root, #__next {
   isolation: isolate;
 }
+
+/* temp theme stuff - @TODO: organize */
+:root {
+  --bg-color: #fff;
+  --text-color: #000;
+}
+
+[data-theme="dark"] {
+  --bg-color: #1e1e1e;
+  --text-color: white;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+ }
